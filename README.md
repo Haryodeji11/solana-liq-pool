@@ -39,8 +39,8 @@ A funded Solana keypair on devnet.
 Clone the Repository:
 bash
 
-git clone https://github.com/your-username/solana-liquidity-pool.git
-cd solana-liquidity-pool
+git clone https://github.com/haryodeji11/solana-liq-pool.git
+cd solana-liq-pool
 
 Install Dependencies:
 bash
@@ -61,7 +61,7 @@ cargo build-bpf
 Deploy to Devnet:
 bash
 
-solana program deploy target/deploy/solana_liquidity_pool.so
+solana program deploy target/deploy/solana_liq_pool.so
 
 Note the program ID (e.g., 2SRp5ENH631KzuRGNXWcdLi59pnvKNNoTm37pMRcBH3Q).
 
@@ -91,7 +91,7 @@ Tests InitializePool, AddLiquidity, RemoveLiquidity, and Swap instructions.
 Project Structure
 src/lib.rs: Core AMM program with instruction logic and data structures.
 
-solana-liquidity-pool-client/: Rust client for testing instructions on devnet.
+solana-liq-pool-client/: Rust client for testing instructions on devnet.
 
 target/deploy/: Compiled .so file for deployment.
 
