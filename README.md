@@ -1,124 +1,117 @@
-Solana Liquidity Pool AMM
-Overview
-This project implements an Automated Market Maker (AMM) liquidity pool on the Solana blockchain, inspired by Raydium. Written in pure Rust, it allows users to initialize a pool, add/remove liquidity, and swap tokens using a constant product formula (x * y = k) with a 0.3% fee. The program is deployed on Solana's devnet and includes a Rust client for testing all instructions.
-Features
-InitializePool: Creates a new liquidity pool with a specified token pair (e.g., SOL/USDC).
+# 🌊 Solana Liquidity Pool AMM
+A Solana-based Automated Market Maker (AMM) program implemented in Rust, inspired by Raydium, enabling decentralized token swaps, liquidity provision, and pool management on the Solana blockchain.
 
-AddLiquidity: Deposits tokens into the pool and mints liquidity tokens.
+## 📖 Overview
+This project is a Solana program that implements a liquidity pool with AMM functionality. It allows users to:
+Initialize a liquidity pool with a token pair (e.g., SOL/USDC).
+
+Add liquidity to the pool and receive liquidity tokens.
+
+Remove liquidity by burning liquidity tokens.
+
+Swap tokens using a constant product formula with a 0.3% fee.
+
+The program is deployed on Solana's devnet and includes a Rust client for testing all instructions.
+
+## ✨ Features
+InitializePool: Creates a pool with a specified token pair and vault accounts.
+
+AddLiquidity: Deposits tokens into the pool, minting liquidity tokens.
 
 RemoveLiquidity: Burns liquidity tokens to withdraw proportional tokens.
 
-Swap: Trades tokens with a constant product formula and 0.3% fee.
+Swap: Executes token swaps with a constant product formula (x * y = k).
 
-Security: Uses Program-Derived Addresses (PDAs) for authority, extensive account validation, and custom error handling.
+Security: Uses Program Derived Addresses (PDAs) for authority, extensive account validation, and custom error handling.
 
 Testing: Includes a Rust client to test all instructions on devnet with real SPL tokens.
 
-Program Details
-Program ID: 2SRp5ENH631KzuRGNXWcdLi59pnvKNNoTm37pMRcBH3Q
+## 🔧 Prerequisites
+Rust: cargo, rustc (latest stable).
 
-Deployment: Solana devnet
+Solana CLI: solana-cli (version 1.18.9 recommended).
 
-Language: Rust
+Node.js (optional for additional tooling).
 
-Dependencies:
-solana-program: 1.18.9
+A funded Solana keypair on devnet.
 
-borsh: 0.10.3
-
-borsh-derive: 0.10.3
-
-Client Testing
-The repository includes a client (solana-liq-pool-client) to test the program on devnet:
-Setup: Creates SPL token mints, user accounts, vaults, and liquidity mint.
-
-Tests: Executes InitializePool, AddLiquidity, RemoveLiquidity, and Swap instructions, verifying pool state after each.
-
-Dependencies:
-solana-client: 1.18.9
-
-solana-sdk: 1.18.9
-
-solana-program: 1.18.9
-
-borsh: 0.10.3
-
-borsh-derive: 0.10.3
-
-anyhow: 1.0.86
-
-serde_json: 1.0.128
-
-shellexpand: 3.0.0
-
-Prerequisites
-Rust (stable)
-
-Solana CLI (solana --version should show 1.18.x)
-
-Node.js (optional, for additional tooling)
-
-A funded Solana keypair on devnet (~/.config/solana/id.json)
-
-Installation
-Clone the repository:
+## 🚀 Installation
+Clone the Repository:
 bash
 
-git clone https://github.com/haryodeji11/solana-liq-pool.git
+git clone https://github.com/your-username/solana-liquidity-pool.git
 cd solana-liquidity-pool
 
-Build the program:
+Install Dependencies:
 bash
 
-cargo build-bpf
-
-Deploy to devnet:
-bash
-
-solana program deploy target/deploy/solana_liq_pool.so
-
-Set up the client:
-bash
-
-cd solana-liq-pool-client
 cargo build
 
-Create SPL token accounts (see docs/testing.md for details).
-
-Usage
-Configure Solana CLI for devnet:
+Configure Solana CLI:
 bash
 
 solana config set --url https://api.devnet.solana.com
 
-Run the client tests:
+🏗️ Building and Deploying
+Build the Program:
 bash
 
-cd solana-liq-pool-client
+cargo build-bpf
+
+Deploy to Devnet:
+bash
+
+solana program deploy target/deploy/solana_liquidity_pool.so
+
+Note the program ID (e.g., 2SRp5ENH631KzuRGNXWcdLi59pnvKNNoTm37pMRcBH3Q).
+
+🧪 Testing
+Set Up Test Client:
+bash
+
+cd solana-liquidity-pool-client
+cargo build
+
+Create SPL Tokens:
+bash
+
+spl-token create-token
+spl-token create-account <Token_Mint_Pubkey>
+spl-token mint <Token_Mint_Pubkey> 1000000
+
+Repeat for two tokens and vault accounts.
+
+Run Tests:
+bash
+
 cargo run
 
-Verify transaction signatures and pool state in the console output.
+Tests InitializePool, AddLiquidity, RemoveLiquidity, and Swap instructions.
+
+Project Structure
+src/lib.rs: Core AMM program with instruction logic and data structures.
+
+solana-liquidity-pool-client/: Rust client for testing instructions on devnet.
+
+target/deploy/: Compiled .so file for deployment.
 
 Security Considerations
-Rug Pull Prevention: Uses PDA authority for vault transfers, ensuring only the program can move funds.
+PDA Authority: Ensures only the program can control vault transfers.
 
-Honeypot Mitigation: Tested with trusted SPL tokens created by the developer.
+Validations: Checks account ownership, writability, and state to prevent unauthorized actions.
 
-Auditing: Recommended before mainnet deployment (e.g., via Certik or Hacken).
+No Rug Pull/Honeypot: Code is transparent, with no hidden withdrawal mechanisms.
 
-Future Improvements
+Future Enhancements
 Add slippage protection for swaps.
 
 Implement fee distribution for liquidity providers.
 
-Support program upgrades using BPFLoaderUpgradeable.
+Support program upgrades via BPFLoaderUpgradeable.
 
-Contributing
-Contributions are welcome! Please submit issues or pull requests to enhance functionality or fix bugs.
+Audit for mainnet deployment.
+
 License
-This project is licensed under the MIT License. See the LICENSE file for details.
-Acknowledgments
-Inspired by Raydium’s AMM model.
-
-Built with the Solana Rust SDK and SPL Token program.
-
+MIT License. See LICENSE for details.
+Contributing
+Contributions are welcome! Please open an issue or submit a pull request for improvements or bug fixes.
